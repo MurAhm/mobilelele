@@ -31,32 +31,38 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public void initializeOffers() {
-        OfferEntity offer1 = new OfferEntity();
-        offer1
-                .setModel(modelRepository.findById(1L).orElse(null))
-                .setEngine(EngineEnum.GASOLINE)
-                .setTransmission(TransmissionEnum.MANUAL)
-                .setMileage(22500)
-                .setPrice(14300)
-                .setYear(2019)
-                .setDescription("Used, but well services and in good condition.")
-                .setSeller(userRepository.findByUsername("pesho").orElse(null)) // or currentUser.getUserName()
-                .setImageUrl("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcXp1KBpDKgYs6VqndkBpX8twjPOZbHV86yg&usqp=CAU");
 
-        OfferEntity offer2 = new OfferEntity();
-        offer2
-                .setModel(modelRepository.findById(1L).orElse(null))
-                .setEngine(EngineEnum.DIESEL)
-                .setTransmission(TransmissionEnum.AUTOMATIC)
-                .setMileage(209000)
-                .setPrice(5500)
-                .setYear(2000)
-                .setDescription("After full maintenance, insurance, new tires...")
-                .setSeller(userRepository.findByUsername("admin").orElse(null)) // or currentUser.getUserName()
-                .setImageUrl("https://www.picclickimg.com/d/l400/pict/283362908243_/FORD-ESCORT-MK5-16L-DOHC-16v-ZETEC.jpg");
+        if (offerRepository.count() == 0) {
+            OfferEntity offer1 = new OfferEntity();
+            offer1
+                    .setModel(modelRepository.findById(1L).orElse(null))
+                    .setEngine(EngineEnum.GASOLINE)
+                    .setTransmission(TransmissionEnum.MANUAL)
+                    .setMileage(22500)
+                    .setPrice(14300)
+                    .setYear(2019)
+                    .setDescription("Used, but well services and in good condition.")
+                    .setSeller(userRepository.findByUsername("pesho")
+                            .orElse(null)) // or currentUser.getUserName()
+                    .setImageUrl(
+                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcXp1KBpDKgYs6VqndkBpX8twjPOZbHV86yg&usqp=CAU");
 
-        offerRepository.saveAll(List.of(offer1, offer2));
-        // TODO
+            OfferEntity offer2 = new OfferEntity();
+            offer2
+                    .setModel(modelRepository.findById(1L).orElse(null))
+                    .setEngine(EngineEnum.DIESEL)
+                    .setTransmission(TransmissionEnum.AUTOMATIC)
+                    .setMileage(209000)
+                    .setPrice(5500)
+                    .setYear(2000)
+                    .setDescription("After full maintenance, insurance, new tires...")
+                    .setSeller(userRepository.findByUsername("admin")
+                            .orElse(null)) // or currentUser.getUserName()
+                    .setImageUrl(
+                            "https://www.picclickimg.com/d/l400/pict/283362908243_/FORD-ESCORT-MK5-16L-DOHC-16v-ZETEC.jpg");
+
+            offerRepository.saveAll(List.of(offer1, offer2));
+        }
     }
 
     @Override
