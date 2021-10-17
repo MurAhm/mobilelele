@@ -16,51 +16,44 @@ import javax.validation.Valid;
 @Controller
 public class UserRegistrationController {
 
-    private final UserService userService;
-    private final ModelMapper modelMapper;
+  private final UserService userService;
+  private final ModelMapper modelMapper;
 
-    public UserRegistrationController(UserService userService,
-                                      ModelMapper modelMapper) {
-        this.userService = userService;
-        this.modelMapper = modelMapper;
+  public UserRegistrationController(UserService userService,
+      ModelMapper modelMapper) {
+    this.userService = userService;
+    this.modelMapper = modelMapper;
+  }
+
+  @ModelAttribute("userModel")
+  public UserRegistrationBindingModel userModel() {
+    return new UserRegistrationBindingModel();
+  }
+
+  @GetMapping("/users/register")
+  public String registerUser() {
+    return "auth-register";
+  }
+
+  @PostMapping("/users/register")
+  public String register(
+      @Valid UserRegistrationBindingModel userModel,
+      BindingResult bindingResult,
+      RedirectAttributes redirectAttributes) {
+
+    if (bindingResult.hasErrors() || !userModel.getPassword().equals(userModel.getConfirmPassword())) {
+      redirectAttributes.addFlashAttribute("userModel", userModel);
+      redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userModel", bindingResult);
+
+      return "redirect:/users/register";
     }
 
-    @ModelAttribute("userModel")
-    public UserRegistrationBindingModel userModel() {
-        return new UserRegistrationBindingModel();
-    }
+    UserRegistrationServiceModel serviceModel =
+        modelMapper.map(userModel, UserRegistrationServiceModel.class);
 
-    @GetMapping("/users/register")
-    public String registerUser() {
-        return "auth-register";
-    }
+    userService.registerAndLoginUser(serviceModel);
 
-    @PostMapping("/users/register")
-    public String register(
-           @Valid UserRegistrationBindingModel userModel,
-            BindingResult bindingResult,
-            RedirectAttributes redirectAttributes) {
-
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("userModel", userModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userModel", bindingResult);
-
-            return "redirect:/users/register";
-        }
-
-        UserRegistrationServiceModel serviceModel =
-                modelMapper.map(userModel, UserRegistrationServiceModel.class);
-
-        if (!userService.isUserNameFree(serviceModel.getUsername())) {
-            redirectAttributes.addFlashAttribute("userModel", userModel);
-            redirectAttributes.addFlashAttribute("userNameOccupied", true);
-
-            return "redirect:/users/register";
-        } else {
-            userService.registerAndLoginUser(serviceModel);
-        }
-
-        return "redirect:/";
-    }
+    return "redirect:/";
+  }
 
 }

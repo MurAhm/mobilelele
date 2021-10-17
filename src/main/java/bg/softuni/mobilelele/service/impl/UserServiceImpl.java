@@ -25,9 +25,9 @@ public class UserServiceImpl implements UserService {
     private final CurrentUser currentUser;
 
     public UserServiceImpl(PasswordEncoder passwordEncoder,
-                           UserRepository userRepository,
-                           UserRoleRepository userRoleRepository,
-                           CurrentUser currentUser) {
+        UserRepository userRepository,
+        UserRoleRepository userRoleRepository,
+        CurrentUser currentUser) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
@@ -48,22 +48,22 @@ public class UserServiceImpl implements UserService {
 
             UserEntity admin = new UserEntity();
             admin
-                    .setUsername("admin")
-                    .setPassword(passwordEncoder.encode("test"))
-                    .setFirstName("Admin")
-                    .setLastName("Adminov")
-                    .setActive(true);
+                .setUsername("admin")
+                .setPassword(passwordEncoder.encode("test"))
+                .setFirstName("Admin")
+                .setLastName("Adminov")
+                .setActive(true);
 
             admin.setRoles(Set.of(adminRole, userRole));
             userRepository.save(admin);
 
             UserEntity pesho = new UserEntity();
             pesho
-                    .setUsername("pesho")
-                    .setPassword(passwordEncoder.encode("test"))
-                    .setFirstName("Pesho")
-                    .setLastName("Petrov")
-                    .setActive(true);
+                .setUsername("pesho")
+                .setPassword(passwordEncoder.encode("test"))
+                .setFirstName("Pesho")
+                .setLastName("Petrov")
+                .setActive(true);
 
             pesho.setRoles(Set.of(userRole));
             userRepository.save(pesho);
@@ -102,13 +102,12 @@ public class UserServiceImpl implements UserService {
                 login(loggedInUser);
 
                 loggedInUser.getRoles().
-                        forEach(r -> currentUser.addRole(r.getRole()));
+                    forEach(r -> currentUser.addRole(r.getRole()));
             }
 
             return success;
         }
     }
-
 
     @Override
     public void logout() {
@@ -123,12 +122,12 @@ public class UserServiceImpl implements UserService {
         UserEntity newUser = new UserEntity();
 
         newUser.
-                setUsername(userRegistrationServiceModel.getUsername()).
-                setFirstName(userRegistrationServiceModel.getFirstName()).
-                setLastName(userRegistrationServiceModel.getLastName()).
-                setActive(true).
-                setPassword(passwordEncoder.encode(userRegistrationServiceModel.getPassword())).
-                setRoles(Set.of(userRole));
+            setUsername(userRegistrationServiceModel.getUsername()).
+            setFirstName(userRegistrationServiceModel.getFirstName()).
+            setLastName(userRegistrationServiceModel.getLastName()).
+            setActive(true).
+            setPassword(passwordEncoder.encode(userRegistrationServiceModel.getPassword())).
+            setRoles(Set.of(userRole));
 
         newUser = userRepository.save(newUser);
 
@@ -137,14 +136,14 @@ public class UserServiceImpl implements UserService {
 
     public boolean isUserNameFree(String username) {
         return userRepository.findByUsernameIgnoreCase(username).
-                isEmpty();
+            isEmpty();
     }
 
     private void login(UserEntity user) {
         currentUser.
-                setLoggedIn(true).
-                setUserName(user.getUsername()).
-                setFirstName(user.getFirstName()).
-                setLastName(user.getLastName());
+            setLoggedIn(true).
+            setUserName(user.getUsername()).
+            setFirstName(user.getFirstName()).
+            setLastName(user.getLastName());
     }
 }

@@ -1,44 +1,31 @@
-package bg.softuni.mobilelele.model.view;
+package bg.softuni.mobilelele.model.service;
 
 import bg.softuni.mobilelele.model.entity.enums.EngineEnum;
 import bg.softuni.mobilelele.model.entity.enums.TransmissionEnum;
 
-public class OfferSummaryView {
+public class OfferUpdateServiceModel {
 
-  private long id;
   private String description;
+
   private EngineEnum engine;
+
   private String imageUrl;
+
   private int mileage;
+
   private int price;
+
   private TransmissionEnum transmission;
+
   private int year;
-  private String model;
-  private String brand;
 
-  public long getId() {
-    return id;
-  }
-
-  public OfferSummaryView setId(long id) {
-    this.id = id;
-    return this;
-  }
-
-  public String getBrand() {
-    return brand;
-  }
-
-  public OfferSummaryView setBrand(String brand) {
-    this.brand = brand;
-    return this;
-  }
+  private Long id;
 
   public String getDescription() {
     return description;
   }
 
-  public OfferSummaryView setDescription(String description) {
+  public OfferUpdateServiceModel setDescription(String description) {
     this.description = description;
     return this;
   }
@@ -47,7 +34,8 @@ public class OfferSummaryView {
     return engine;
   }
 
-  public OfferSummaryView setEngine(EngineEnum engine) {
+  public OfferUpdateServiceModel setEngine(
+      EngineEnum engine) {
     this.engine = engine;
     return this;
   }
@@ -56,7 +44,7 @@ public class OfferSummaryView {
     return imageUrl;
   }
 
-  public OfferSummaryView setImageUrl(String imageUrl) {
+  public OfferUpdateServiceModel setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
     return this;
   }
@@ -65,7 +53,7 @@ public class OfferSummaryView {
     return mileage;
   }
 
-  public OfferSummaryView setMileage(int mileage) {
+  public OfferUpdateServiceModel setMileage(int mileage) {
     this.mileage = mileage;
     return this;
   }
@@ -74,7 +62,7 @@ public class OfferSummaryView {
     return price;
   }
 
-  public OfferSummaryView setPrice(int price) {
+  public OfferUpdateServiceModel setPrice(int price) {
     this.price = price;
     return this;
   }
@@ -83,7 +71,7 @@ public class OfferSummaryView {
     return transmission;
   }
 
-  public OfferSummaryView setTransmission(
+  public OfferUpdateServiceModel setTransmission(
       TransmissionEnum transmission) {
     this.transmission = transmission;
     return this;
@@ -93,17 +81,17 @@ public class OfferSummaryView {
     return year;
   }
 
-  public OfferSummaryView setYear(int year) {
+  public OfferUpdateServiceModel setYear(int year) {
     this.year = year;
     return this;
   }
 
-  public String getModel() {
-    return model;
+  public Long getId() {
+    return id;
   }
 
-  public OfferSummaryView setModel(String model) {
-    this.model = model;
+  public OfferUpdateServiceModel setId(Long id) {
+    this.id = id;
     return this;
   }
 }

@@ -27,7 +27,6 @@ public class UserLoginController {
 
   @PostMapping("/users/login")
   public String login(UserLoginBindingModel userLoginBindingModel) {
-
     // Delegate the logic to the service layer
     boolean loginSuccessful = userService.
         login(new UserLoginServiceModel().

@@ -21,6 +21,11 @@ spring:
         format_sql: true
     defer-datasource-initialization: true
 
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
 logging:
   level:
     org.hibernate.SQL: DEBUG
